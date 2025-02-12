@@ -8,6 +8,7 @@ import re
 import torch
 import pandas as pd
 
+# Список токенов для доступа к API
 tokens = []
 token_index_hf = 0
 client_hf = InferenceClient(provider="hf-inference", api_key=tokens[token_index_hf])
