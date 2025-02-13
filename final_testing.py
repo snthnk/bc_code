@@ -194,7 +194,7 @@ def run_tests(use_instructions, num_samples):
 
     total_bert = 0
     total_jaccard = 0
-    total_time = 0
+    total_throughput = 0  # Переименовано из total_time
     num_total = len(all_samples)
 
     for i, sample in enumerate(tqdm(all_samples, desc="Тестирование")):
@@ -225,16 +225,20 @@ def run_tests(use_instructions, num_samples):
             continue
 
         elapsed = time.time() - start_time
+        input_words = len(text.split())
         gen_length = len(generated.split())
 
+        # Расчет производительности
+        throughput = (input_words + gen_length) / elapsed if elapsed > 0 else 0
+
         print(f"\nРезультат ({gen_length} слов):\n{generated[:150]}...")
-        print(f"Время обработки: {elapsed:.2f} сек")
+        print(f"Производительность: {throughput:.2f} слов/сек")
 
         bert_score, jaccard = evaluate_summary(generated, reference)
 
         total_bert += bert_score
         total_jaccard += jaccard
-        total_time += elapsed
+        total_throughput += throughput
 
         print(f"BERT-Score: {bert_score:.3f}")
         print(f"Коэф. Жаккара: {jaccard:.3f}")
@@ -242,7 +246,7 @@ def run_tests(use_instructions, num_samples):
     print("\nИтоговые результаты:")
     print(f"Средний BERT-Score: {total_bert / num_total:.3f}")
     print(f"Средний коэф. Жаккара: {total_jaccard / num_total:.3f}")
-    print(f"Среднее время обработки: {total_time / num_total:.2f} сек")
+    print(f"Средняя производительность: {total_throughput / num_total:.2f} слов/сек")
 
 
 print("=" * 50)
