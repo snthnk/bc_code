@@ -195,6 +195,7 @@ def run_tests(use_instructions, num_samples):
     total_bert = 0
     total_jaccard = 0
     total_throughput = 0
+    total_deviation = 0
     num_total = len(all_samples)
 
     for i, sample in enumerate(tqdm(all_samples, desc="Тестирование")):
@@ -228,10 +229,14 @@ def run_tests(use_instructions, num_samples):
         input_words = len(text.split())
         gen_length = len(generated.split())
 
+        deviation = (abs(gen_length - target_length) / target_length) * 100
+        total_deviation += deviation
+
         throughput = (input_words + gen_length) / elapsed if elapsed > 0 else 0
 
         print(f"\nРезультат ({gen_length} слов):\n{generated[:150]}...")
         print(f"Производительность: {throughput:.2f} слов/сек")
+        print(f"Отклонение длины: {deviation:.1f}%")
 
         bert_score, jaccard = evaluate_summary(generated, reference)
 
@@ -246,6 +251,7 @@ def run_tests(use_instructions, num_samples):
     print(f"Средний BERT-Score: {total_bert / num_total:.3f}")
     print(f"Средний коэф. Жаккара: {total_jaccard / num_total:.3f}")
     print(f"Средняя производительность: {total_throughput / num_total:.2f} слов/сек")
+    print(f"Среднее отклонение длины: {total_deviation / num_total:.1f}%")
 
 
 print("=" * 50)
