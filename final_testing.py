@@ -194,7 +194,7 @@ def run_tests(use_instructions, num_samples):
 
     total_bert = 0
     total_jaccard = 0
-    total_throughput = 0  # Переименовано из total_time
+    total_throughput = 0
     num_total = len(all_samples)
 
     for i, sample in enumerate(tqdm(all_samples, desc="Тестирование")):
@@ -228,7 +228,6 @@ def run_tests(use_instructions, num_samples):
         input_words = len(text.split())
         gen_length = len(generated.split())
 
-        # Расчет производительности
         throughput = (input_words + gen_length) / elapsed if elapsed > 0 else 0
 
         print(f"\nРезультат ({gen_length} слов):\n{generated[:150]}...")
