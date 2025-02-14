@@ -12,7 +12,7 @@ import pandas as pd
 tokens = []
 token_index_hf = 0
 client_hf = InferenceClient(provider="hf-inference", api_key=tokens[token_index_hf])
-bert_model = SentenceTransformer('sberbank-ai/sbert_large_mt_nlu_ru')
+bert_model = SentenceTransformer('ai-forever/ru-en-RoSBERTa')
 
 def compute_jaccard_similarity(text1, text2):
     tokens1 = set(re.findall(r'\b\w+\b', text1.lower()))
