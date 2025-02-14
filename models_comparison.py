@@ -18,7 +18,7 @@ client_hf = InferenceClient(
     api_key=tokens[token_index_hf]
 )
 
-bert_model = SentenceTransformer('sberbank-ai/sbert_large_mt_nlu_ru')
+bert_model = SentenceTransformer('ai-forever/ru-en-RoSBERTa')
 
 
 def eval_model(model_name, prompt, size):
