@@ -144,7 +144,7 @@ def summarize_text(text, overall_target_words, use_instructions):
 
 
 def evaluate_summary(generated, reference):
-    model = SentenceTransformer('sberbank-ai/sbert_large_mt_nlu_ru')
+    model = SentenceTransformer('ai-forever/ru-en-RoSBERTa')
     emb1 = model.encode(generated, convert_to_tensor=True)
     emb2 = model.encode(reference, convert_to_tensor=True)
     bert_score = util.cos_sim(emb1, emb2).item()
