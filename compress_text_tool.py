@@ -311,7 +311,7 @@ async def _summarize_segment_internal(
 
     completion = await client.chat_completion(
         messages=messages,
-        model="deepseek-ai/DeepSeek-V3",
+        model="scb10x/llama-3-typhoon-v1.5x-70b-instruct-awq",
         max_tokens=int(target_words * 2.5),
         temperature=0.5
     )
